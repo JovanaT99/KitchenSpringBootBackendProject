@@ -1,4 +1,4 @@
-package com.example.demo.Services;
+package com.example.demo.services;
 
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
@@ -23,9 +23,9 @@ public class ProductServis {
     }
 
 
-    public Optional<Product>getProductByNamee(String name){
-        Optional<Product>productByName=productRepository.getProductByName(name);
-        if(productByName.isEmpty()){
+    public Optional<Product> getProductByNamee(String name) {
+        Optional<Product> productByName = productRepository.getProductByName(name);
+        if (productByName.isEmpty()) {
             throw new IllegalStateException("Product with name doesnt exist");
         }
         return productRepository.getProductByName(name);
@@ -43,19 +43,18 @@ public class ProductServis {
     }
 
 
-
     public void addNewIngredients(Product product) {
         Optional<Product> ingredientByName = productRepository
                 .findIngredientsByName(product.getName());
-       product.setCurrentPrice(product.getCurrentPrice());
+        product.setCurrentPrice(product.getCurrentPrice());
 
         if (ingredientByName.isPresent()) {
             throw new IllegalStateException("name taken");
-        }else if(product.getCurrentPrice()<1){
+        } else if (product.getCurrentPrice() < 1) {
 
             throw new IllegalStateException("Check price");
         }
-           productRepository.save(product);
+        productRepository.save(product);
     }
 
     public void deleteProduct(Long id) {
