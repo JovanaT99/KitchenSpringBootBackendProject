@@ -33,7 +33,7 @@ public class ProductController {
 
     @GetMapping("/name")
     public Optional<Product> getProductByName(@RequestParam(name = "name") String name){
-        return productRepository.getProductByName(name);
+        return productService.getProductByNamee(name);
    }
 
     @PostMapping
