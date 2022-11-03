@@ -4,6 +4,7 @@ import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -67,8 +68,35 @@ public class ProductServis {
 
     }
 
-    public List<Product> getProductByName(String name) {
+   /* public List<Product> getProductByName(String name) {
         return getProductByName(name);
+    }
+
+    */
+
+    @Transactional
+    public void updateIngredients(Long id, double currentprice) {
+
+        Product product = productRepository.findById(id).orElseThrow(() -> new IllegalStateException("product with id" + id + "doesnt exist"));
+
+        if (currentprice != 0) {
+            product.setCurrentPrice(currentprice);
+        }
+
+    }
+
+    @Transactional
+    public void updateIngredientsByName(Long id, String name) {
+
+        Product product2 = productRepository.findById(id).orElseThrow(() -> new IllegalStateException("product with id" + id + "doesnt exist"));
+
+        if (name != null && name.length() > 0) {
+            Optional<Product> productOptional = productRepository.findIngredientsByName(name);
+            if (productOptional.isPresent()) {
+                throw new IllegalStateException("name taken");
+            }
+            product2.setName(name);
+        }
     }
 }
 
