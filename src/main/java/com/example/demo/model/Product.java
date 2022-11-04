@@ -21,6 +21,9 @@ public class Product {
     @Column(name = "currentPrice")
     private double currentPrice;
 
+
+
+
     public Product( String name, double currentPrice) {
         this.name = name;
         this.currentPrice = currentPrice;
